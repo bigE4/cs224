@@ -1,0 +1,18 @@
+HW3: Y86-64
+1a: irmovq 10, %rax
+1b: addq %rax, %rcx
+1c:
+andq %rax, %rax
+je ifzero
+halt
+1d:
+rrmovq %rax, %rcx
+rrmovq %rbx, %rax
+rrmovq %rcx, %rbx
+1e:
+irmovq a, %rax
+mrmovq (%rax), %rdx
+1f:
+irmovq b, %rax
+irmovq 0xbbbb, %rbx
+rmmovq %rbx, (%rax)
