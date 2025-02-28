@@ -1,0 +1,40 @@
+# Number of Iterations
+irmovq $24, %rax
+
+# My Code Here
+
+# Range Loop (3 Iterations)
+irmovq $0, %r13
+irmovq $8, %r14
+loop:
+jmp func
+endfunc:
+addq %r14, %r13
+subq %r13, %rax
+je end
+addq %r13, %rax
+jmp loop
+
+# Memory Copy Function
+func:
+irmovq src, %rcx
+addq %r13, %rcx
+mrmovq (%rcx), %rbx
+irmovq dest, %rcx
+addq %r13, %rcx
+rmmovq %rbx, (%rcx)
+jmp endfunc
+
+end:
+halt
+
+# Starter Code
+.align 8
+src:
+.quad 0xaaaa
+.quad 0xbbbb
+.quad 0xcccc
+dest:
+.quad 0x1111
+.quad 0x2222
+.quad 0x3333

@@ -1,0 +1,36 @@
+irmovq 0x0, %rax
+irmovq ele1, %rdi
+irmovq 0x8, %r14
+
+start:
+rrmovq %rdi, %rdx
+mrmovq (%rdx), %rcx
+addq %rcx, %rax
+addq %r14, %rdi
+rrmovq %rdi, %rdx
+mrmovq (%rdx), %rbx
+andq %rbx, %rbx
+je end
+mrmovq (%rdx), %rdi
+rrmovq %rdi, %rdx
+jmp start
+end:
+halt
+
+# Sample linked list
+.align 8
+ele1:
+.quad 0x01
+.quad ele2
+ele2:
+.quad 0x10
+.quad ele3
+ele3:
+.quad 0x100
+.quad ele4
+elex:
+.quad 0x1000
+.quad ele1
+ele4:
+.quad 0x10000
+.quad 0
