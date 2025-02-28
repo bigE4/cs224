@@ -1,0 +1,57 @@
+loop:
+irmovq $10, %rax
+irmovq 0x1, %rcx
+irmovq 0x8, %r14
+
+addq %rcx, %rdx
+rrmovq %rdx, %rbx
+subq %rax, %rbx
+jge init
+addq %r14, %r8
+jmp loop
+
+init:
+rrmovq %r8, %rax
+irmovq data, %rcx
+addq %rax, %rcx
+rrmovq %rcx, %r8
+
+irmovq data, %rcx
+irmovq 0x1, %rdi
+
+
+start:
+irmovq 0x0, %rdi
+mrmovq (%rcx), %rdx
+mrmovq 8(%rcx), %rbx
+subq %rbx, %rdx
+jg swap
+addq %r14, %rcx
+rrmovq %rcx, %r9
+subq %r8, %r9
+jg end
+jmp start
+
+swap:
+irmovq 0x1, %rdi
+mrmovq (%rcx), %rdx
+rmmovq %rdx, 8(%rcx)
+rmmovq %rbx, (%rcx)
+irmovq data, %rcx
+jmp start
+
+end:
+halt
+
+.align 8
+data:
+.quad 0x05
+.quad 0x0a
+.quad 0x08
+.quad 0x02
+.quad 0x01
+.quad 0x03
+.quad 0x06
+.quad 0x04
+.quad 0x09
+.quad 0x07
